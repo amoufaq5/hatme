@@ -1,0 +1,32 @@
+<!-- templates/diagnosis_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text Diagnosis</title>
+</head>
+<body>
+  <h1>Text-based Diagnosis</h1>
+  <form action="/diagnose" method="post">
+    <label>Who is the patient?</label>
+    <input type="text" name="patient" required/><br/>
+    
+    <label>What are the symptoms?</label>
+    <input type="text" name="symptoms" required/><br/>
+    
+    <label>How long have the symptoms been present?</label>
+    <input type="text" name="duration" required/><br/>
+    
+    <label>Action taken?</label>
+    <input type="text" name="action_taken"/><br/>
+    
+    <label>Medication being taken?</label>
+    <input type="text" name="medication_taken"/><br/>
+    
+    <!-- Additional fields for ASMETHOD, ENCORE, SIT DOWN SIR -->
+    <label>Danger symptoms? (Yes/No)</label>
+    <input type="text" name="danger_symptoms" required/><br/>
+    
+    <button type="submit">Diagnose</button>
+  </form>
+</body>
+</html>
