@@ -1,0 +1,15 @@
+<!-- templates/upload_image.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Diagnosis</title>
+</head>
+<body>
+  <h1>Image-based Diagnosis</h1>
+  <form action="/upload-image" method="post" enctype="multipart/form-data">
+    <label>Upload an image (CT, MRI, etc.)</label>
+    <input type="file" name="image" required/><br/>
+    <button type="submit">Diagnose</button>
+  </form>
+</body>
+</html>
