@@ -43,7 +43,7 @@ env:
   GAR_LOCATION: 'us-central1' # TODO: update to your region
   GKE_CLUSTER: ' handy-coil-451701-m0 ' # TODO: update to your cluster name
   GKE_ZONE: 'us-central1-c' # TODO: update to your cluster zone
-  DEPLOYMENT_NAME: 'gke-test' # TODO: update to your deployment name
+  DEPLOYMENT_NAME: 'hubble-relay' # TODO: update to your deployment name
   REPOSITORY: 'hatme' # TODO: update to your Artifact Registry docker repository name
   IMAGE: 'static-site'
   WORKLOAD_IDENTITY_PROVIDER: '348432622030-compute@developer.gserviceaccount.com' # TODO: update to your workload identity provider
