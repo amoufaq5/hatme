@@ -1,18 +1,32 @@
-# Stage 1: Build stage using Alpine for dependency installation
-FROM python:3.9-alpine AS builder
-WORKDIR /app
-# Copy only the dependency file first to leverage caching
-COPY requirements.txt .
-# Install build dependencies required to compile any native extensions
-RUN apk add --no-cache gcc musl-dev linux-headers && \
-    pip install --no-cache-dir -r requirements.txt
+# Stage 1: Build stage (install Python dependencies, including TensorFlow)
+FROM python:3.9-slim as builder
 
-# Stage 2: Production image using a clean Alpine image
-FROM python:3.9-alpine
+# Ensure we have system dependencies needed for compiling (if necessary)
+# For just installing TensorFlow wheels, you typically only need the basics:
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
-# Copy installed Python packages from builder stage
-COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
-# Copy the rest of the application code
+
+# Copy only requirements to leverage Docker layer caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Production image (lightweight)
+FROM python:3.9-slim
+
+# Copy installed packages from builder stage
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+
+# Copy application code
+WORKDIR /app
 COPY . .
+
+# Expose the port for Cloud Run
 EXPOSE 8080
+
+# Start the Flask app
 CMD ["python", "app.py"]
